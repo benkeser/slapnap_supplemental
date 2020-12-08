@@ -1,0 +1,7 @@
+multiple_sensitivity/bash_output/*
+multiple_sensitivity/R_output/*
+!multiple_sensitivity/R_output/.gitkeep
+!multiple_sensitivity/bash_output/.gitkeep 
+multiple_sensitivity/flagged_results
+multiple_sensitivity/.DS_Store
+.DS_Store
