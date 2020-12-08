@@ -18,7 +18,9 @@ The code requires the following installed software:
 * `R` (with `Rscript` executable in `PATH`)
 * `R` packages: `here`, `SuperLearner`, `cvAUC`, `ggplot2`
 
-With this software is installed, the analysis can be reproduced by executing `make auc_fig` or simply `make` at the command line. However, do note that this will simultaneously run 32 Docker containers to obtain results. Consequently, you may need to increase the available memory available to your Docker program and/or ensure that you are on a computer that has adequate resources for executing this task.
+With this software is installed, the analysis can be reproduced by executing `make auc_fig` or simply `make` at the command line. You may need to remove the existing output figure `fig/auc_fig.tiff` first. 
+
+Do note that this will simultaneously run 32 Docker containers to obtain results. Consequently, you may need to increase the available memory available to your Docker program and/or ensure that you are on a computer that has adequate resources for executing this task.
 
 -----
 
