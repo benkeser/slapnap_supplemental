@@ -26,7 +26,7 @@ Do note that this will simultaneously run 32 Docker containers to obtain results
 
 ## Details
 
-The analysis is executed in several stages. First `slapnap_output` is made by running the `slapnap` container for each of 16 combination antibodies. For each antibody, two containers are run: one to trainer the learner based on the individual antibody data, the second to obtain a data set for the combination antibody. These results are saved in `bash_output/` in folders with the name of each antibody separated by underscores and a `_2` to denote the folder where data for the combination antibody is saved.
+The analysis is executed in several stages. First `slapnap_output` is made by running the `slapnap` container for each of 16 combination antibodies. For each antibody, two containers are run: one to train the learner based on the individual antibody data, the second to obtain a data set for the combination antibody. These results are saved in `bash_output/` in folders with the name of each antibody separated by underscores and a `_2` to denote the folder where data for the combination antibody is saved.
 
 Next, `R_output/all_nabs.txt` is created, which simply formats the antibody names to be used in later `R` scripts.
 

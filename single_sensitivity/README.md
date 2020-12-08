@@ -16,23 +16,21 @@ The code requires the following installed software:
 * `make`
 * `docker`
 * `R` (with `Rscript` executable in `PATH`)
-* `R` packages: `here`, `SuperLearner`, `cvAUC`, `ggplot2`
+* `R` packages: `here`, `SuperLearner`, `cvAUC`, `dplyr`, `tibble`, `ggplot2`, `cowplot`
 
 With this software is installed, the analysis can be reproduced by executing `make auc_fig` or simply `make` at the command line. You may need to remove the existing output figure `fig/auc_fig.tiff` first.
 
-Do note that this will simultaneously run 32 Docker containers to obtain results. Consequently, you may need to increase the available memory available to your Docker program and/or ensure that you are on a computer that has adequate resources for executing this task.
+Do note that this will simultaneously run 33 Docker containers to obtain results. Consequently, you may need to increase the available memory available to your Docker program and/or ensure that you are on a computer that has adequate resources for executing this task.
 
 -----
 
 ## Details
 
-The analysis is executed in several stages. First `slapnap_output` is made by running the `slapnap` container for each of 16 combination antibodies. For each antibody, two containers are run: one to trainer the learner based on the individual antibody data, the second to obtain a data set for the combination antibody. These results are saved in `bash_output/` in folders with the name of each antibody separated by underscores and a `_2` to denote the folder where data for the combination antibody is saved.
+The analysis is executed in several stages. First `slapnap_output` is made by running the `slapnap` container for each of 33 antibodies. The results are saved in `bash_output/` in folders with the name of each antibody.
 
 Next, `R_output/all_nabs.txt` is created, which simply formats the antibody names to be used in later `R` scripts.
 
 Next, `R_output/rslt_df.RData` is created, by executing `R/combine_results.R`. Note that this execution occurs *inside* the slapnap container, to ensure that there are no compiler errors associated with using `slapnap`-trained learners to predict on features.
-
-Next, `R_output/n_sens_df.RData` is created, by executing `R/describe_combo_sens.R`. The file contains information on the number of resistant sequences for each measured combination antibody regimen.
 
 Finally, all results are pieced together by executing `R/make_auc_fig.R` (locally) with output being an image saved in `fig/auc_fig.tiff`.
 
