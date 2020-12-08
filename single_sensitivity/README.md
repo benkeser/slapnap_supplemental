@@ -1,7 +1,7 @@
 
 # `slapnap_supplement/single_sensitivty`
 
-> Validation of slapnap for use with multiple antibodies
+> Validation of slapnap for use with single antibodies
 
 **Authors:** [David Benkeser](https://www.github.com/benkeser/), [Brian
 D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Sohail Nizam, Peter B. Gilbert
