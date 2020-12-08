@@ -1,5 +1,5 @@
 
-# `slapnap_supplement/multiple_sensitivty`
+# `slapnap_supplement/single_sensitivty`
 
 > Validation of slapnap for use with multiple antibodies
 
@@ -10,7 +10,7 @@ D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Sohail Ni
 
 ## Description
 
-This directory contains all code needed to reproduce the `slapnap` analysis of multiple antibody regimens. The dependency structure of the code can be examined by studying the `Makefile`. See `make help` for more details on the components of the analysis.
+This directory contains all code needed to reproduce the `slapnap` analysis of single antibody regimens. The dependency structure of the code can be examined by studying the `Makefile`. See `make help` for more details on the components of the analysis.
 
 The code requires the following installed software:
 * `make`
