@@ -36,5 +36,5 @@ do
     -e sens_thresh="50" \
     -e return="report;data;learner" \
     -e nfolds="5" \
-    slapnap/slapnap
+    slapnap
 done
