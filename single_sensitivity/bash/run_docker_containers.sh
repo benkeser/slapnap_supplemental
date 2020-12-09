@@ -27,7 +27,7 @@ do
   mkdir -p ./docker_output/$DIR_NAB
   docker run \
     -d \
-    -v "$(pwd)"/docker_output/$DIR_NAB:/home/output \
+    -v "$(pwd)"/docker_output/$DIR_NAB/:/home/output/ \
     -e learners="rf;lasso;xgboost" \
     -e cvperf="TRUE" \
     -e cvtune="TRUE" \
