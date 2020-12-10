@@ -10,3 +10,4 @@ single_sensitivity/R_output/*
 single_sensitivity/docker_output/*
 !single_sensitivity/R_output/.gitkeep
 !single_sensitivity/bash_output/.gitkeep
+!single_sensitivity/docker_output/.gitkeep
