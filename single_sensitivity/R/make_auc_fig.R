@@ -81,18 +81,19 @@ hake_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.67, cil
                            tibble(epitope = "MPER", bnab = "4E10", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "MPER", bnab = "2F5", AUC = NA, cil = NA, ciu = NA)) %>%
     mutate(method = "Hake and Pfeifer (2017)")
-slapnap_results_init <- load(here("R_output", "rslt_df.RData"))
+load(here("R_output", "rslt_df.RData"))
 # tack on epitope
-slapnap_results <- slapnap_results_init %>%
+slapnap_results <- rslt_df %>%
     as_tibble() %>%
     mutate(
+        bnab = toupper(bnab),
         epitope = case_when(
             bnab %in% c("2G12", "PG16", "PG9", "PGDM1400",
             "PGT145", "VRC26.08", "VRC26.25") ~ "V1V2",
             bnab %in% c("10-1074", "10-996", "DH270.1",
             "DH270.5", "DH270.6", "PGT121", "PGT128",
             "PGT135", "VRC29.03", "VRC38.01") ~ "V3",
-            bnab %in% c("3BNC117", "b12", "CH01",
+            bnab %in% c("3BNC117", "B12", "CH01",
             "HJ16", "NIH45-46", "VRC-CH31", "VRC-PG04",
             "VRC01", "VRC03", "VRC07") ~ "CD4bs",
             bnab %in% c("PGT151", "VRC34.01") ~ "Fusion peptide",
@@ -107,13 +108,14 @@ compare_tib <- bind_rows(rawi_results, hake_results, slapnap_results)
 # Create the plot
 # --------------------------------------------------------------------------
 epitope_labs <- unique(compare_tib$epitope)[order(unique(compare_tib$epitope), decreasing = TRUE)]
+point_size <- 2
 cd4bs_plot <- compare_tib %>%
     filter(epitope == "CD4bs") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     ggtitle("CD4bs") +
@@ -126,8 +128,8 @@ fusion_plot <- compare_tib %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
@@ -140,8 +142,8 @@ mper_plot <- compare_tib %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
@@ -154,8 +156,8 @@ subunit_plot <- compare_tib %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
@@ -168,8 +170,8 @@ v1v2_plot <- compare_tib %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     ylab("CV-AUC") +
@@ -182,8 +184,8 @@ v3_plot <- compare_tib %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
                y = AUC, ymin = cil, ymax = ciu, shape = method,
                group = paste0(epitope, "_", method))) +
-    geom_pointrange(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = 1) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+                    size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
@@ -193,10 +195,17 @@ v3_plot <- compare_tib %>%
     theme(plot.title = element_text(hjust = 0.5))
 
 
-compare_plot <- plot_grid(plot_grid(v1v2_plot, v3_plot, cd4bs_plot, fusion_plot, subunit_plot, mper_plot,
-                                    nrow = 1, rel_widths = c(1, 1, 1, 0.475, 0.475, 1)),
-                          ggplot() + ggtitle("bnAb") + guides(x = "none", y = "none") + theme(plot.title = element_text(hjust = 0.5, face = "plain")),
-                          nrow = 2, rel_heights = c(1, 0.1))
+compare_plot <- plot_grid(
+    plot_grid(
+        plot_grid(v1v2_plot, v3_plot, nrow = 1),
+        plot_grid(cd4bs_plot, fusion_plot, subunit_plot, mper_plot, nrow = 1,
+        rel_widths = c(1.5, 0.5, 0.5, 1)),
+        nrow = 2
+    ),
+    ggplot() + ggtitle("bnAb") + guides(x = "none", y = "none") +
+    theme(plot.title = element_text(hjust = 0.5, face = "plain")),
+    nrow = 2, rel_heights = c(1, 0.1)
+)
 
 
 ggsave(filename = here("fig", "auc_fig.tiff"),
