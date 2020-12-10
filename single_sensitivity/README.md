@@ -22,6 +22,8 @@ With this software is installed, the analysis can be reproduced by executing `ma
 
 Do note that this will simultaneously run 33 Docker containers to obtain results. Consequently, you may need to increase the available memory available to your Docker program and/or ensure that you are on a computer that has adequate resources for executing this task.
 
+Also, the "make" command may fail, since this code takes some time to run and the Docker containers are running in the background. If this occurs, wait for the Docker containers to finish running, edit the Makefile (making sure you have a copy of the original somewhere) to remove dependence on the Docker containers, and re-run "make" from that point.
+
 -----
 
 ## Details
