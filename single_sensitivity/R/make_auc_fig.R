@@ -211,3 +211,13 @@ compare_plot <- plot_grid(
 ggsave(filename = here("fig", "auc_fig.tiff"),
        plot = compare_plot,
        width = 45, height = 20, units = "cm")
+
+# median across all epitopes and within epitope for each estimator
+compare_tib %>% 
+    group_by(epitope, method) %>% 
+    summarize(AUC = median(AUC, na.rm = TRUE)) %>% 
+    readr::write_csv(here("fig", "median_auc_by_epitope.csv"))
+compare_tib %>% 
+    group_by(method) %>% 
+    summarize(AUC = median(AUC, na.rm = TRUE)) %>% 
+    readr::write_csv(here("fig", "median_auc_overall.csv"))

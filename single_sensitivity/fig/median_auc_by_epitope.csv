@@ -1,0 +1,19 @@
+epitope,method,AUC
+CD4bs,Hake and Pfeifer (2017),0.705
+CD4bs,Rawi et al. (2019),0.79
+CD4bs,SLAPNAP,0.7568723935752921
+Fusion peptide,Hake and Pfeifer (2017),NA
+Fusion peptide,Rawi et al. (2019),0.78
+Fusion peptide,SLAPNAP,0.8031437750845645
+MPER,Hake and Pfeifer (2017),NA
+MPER,Rawi et al. (2019),0.895
+MPER,SLAPNAP,0.7958629036114415
+Subunit interface,Hake and Pfeifer (2017),0.65
+Subunit interface,Rawi et al. (2019),0.765
+Subunit interface,SLAPNAP,0.7763466750724161
+V1V2,Hake and Pfeifer (2017),0.69
+V1V2,Rawi et al. (2019),0.86
+V1V2,SLAPNAP,0.8463741759490795
+V3,Hake and Pfeifer (2017),0.8
+V3,Rawi et al. (2019),0.92
+V3,SLAPNAP,0.8317766882240567
