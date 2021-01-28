@@ -13,3 +13,9 @@ single_sensitivity/docker_output/*
 !single_sensitivity/docker_output/.gitkeep
 .Rproj.user
 *.Rproj
+*.Rhistory
+!test_set/docker_output/
+!test_set/R_output/.gitkeep
+test_set/slapnap*.csv
+test_set/*.html
+test_set/*.log
