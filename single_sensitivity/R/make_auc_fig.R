@@ -15,11 +15,11 @@ library("here")
 # note Hake and Pfeifer results are from Table S5, Rawi et al. results are from Table S1
 rawi_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.85, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PG16", AUC = 0.79, cil = NA, ciu = NA),
-                           tibble(epitope = "V1V2", bnab = "2G12", AUC = 0.93, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PGT145", AUC = 0.86, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PGDM1400", AUC = 0.83, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "VRC26.08", AUC = 0.89, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "VRC26.25", AUC = 0.89, cil = NA, ciu = NA),
+                           tibble(epitope = "V3", bnab = "2G12", AUC = 0.93, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "PGT128", AUC = 0.89, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "PGT121", AUC = 0.92, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "10-996", AUC = NA, cil = NA, ciu = NA),
@@ -49,11 +49,11 @@ rawi_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.85, cil
     mutate(method = "Rawi et al. (2019)")
 hake_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.67, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PG16", AUC = 0.71, cil = NA, ciu = NA),
-                           tibble(epitope = "V1V2", bnab = "2G12", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PGT145", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "PGDM1400", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "VRC26.08", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "V1V2", bnab = "VRC26.25", AUC = NA, cil = NA, ciu = NA),
+                           tibble(epitope = "V3", bnab = "2G12", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "PGT128", AUC = 0.68, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "PGT121", AUC = 0.79, cil = NA, ciu = NA),
                            tibble(epitope = "V3", bnab = "10-996", AUC = 0.84, cil = NA, ciu = NA),
@@ -88,9 +88,9 @@ slapnap_results <- rslt_df %>%
     mutate(
         bnab = toupper(bnab),
         epitope = case_when(
-            bnab %in% c("2G12", "PG16", "PG9", "PGDM1400",
+            bnab %in% c("PG16", "PG9", "PGDM1400",
             "PGT145", "VRC26.08", "VRC26.25") ~ "V1V2",
-            bnab %in% c("10-1074", "10-996", "DH270.1",
+            bnab %in% c("2G12", "10-1074", "10-996", "DH270.1",
             "DH270.5", "DH270.6", "PGT121", "PGT128",
             "PGT135", "VRC29.03", "VRC38.01") ~ "V3",
             bnab %in% c("3BNC117", "B12", "CH01",
@@ -118,52 +118,10 @@ cd4bs_plot <- compare_tib %>%
                     size = point_size) +
     geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
     ylim(c(0.3, 1)) +
+    ylab("CV-AUC") +
     ggtitle("CD4bs") +
     xlab("") +
-    labs(y = NULL) +
-    guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
-fusion_plot <- compare_tib %>%
-    filter(epitope == "Fusion peptide") %>%
-    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
-               y = AUC, ymin = cil, ymax = ciu, shape = method,
-               group = paste0(epitope, "_", method))) +
-    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
-    ylim(c(0.3, 1)) +
-    labs(y = NULL) +
-    ggtitle("Fusion peptide") +
-    xlab("") +
-    guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
-mper_plot <- compare_tib %>%
-    filter(epitope == "MPER") %>%
-    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
-               y = AUC, ymin = cil, ymax = ciu, shape = method,
-               group = paste0(epitope, "_", method))) +
-    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
-    ylim(c(0.3, 1)) +
-    labs(y = NULL) +
-    ggtitle("MPER") +
-    xlab("") +
-    guides(x = guide_axis(n.dodge = 2), y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
-subunit_plot <- compare_tib %>%
-    filter(epitope == "Subunit interface") %>%
-    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
-               y = AUC, ymin = cil, ymax = ciu, shape = method,
-               group = paste0(epitope, "_", method))) +
-    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
-                    size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
-    ylim(c(0.3, 1)) +
-    labs(y = NULL) +
-    ggtitle("Subunit interface") +
-    xlab("") +
-    guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
+    guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
     theme(plot.title = element_text(hjust = 0.5))
 v1v2_plot <- compare_tib %>%
     filter(epitope == "V1V2") %>%
@@ -179,6 +137,49 @@ v1v2_plot <- compare_tib %>%
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
     theme(plot.title = element_text(hjust = 0.5))
+fusion_plot <- compare_tib %>%
+    filter(epitope == "Fusion peptide") %>%
+    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
+               y = AUC, ymin = cil, ymax = ciu, shape = method,
+               group = paste0(epitope, "_", method))) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+               size = point_size) +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    ylim(c(0.3, 1)) +
+    labs(y = NULL) +
+    ggtitle("Fusion peptide") +
+    xlab("") +
+    guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
+    theme(plot.title = element_text(hjust = 0.5))
+mper_plot <- compare_tib %>%
+    filter(epitope == "MPER") %>%
+    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
+               y = AUC, ymin = cil, ymax = ciu, shape = method,
+               group = paste0(epitope, "_", method))) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+               size = point_size) +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    ylim(c(0.3, 1)) +
+    labs(y = NULL) +
+    ggtitle("MPER") +
+    xlab("") +
+    guides(x = guide_axis(n.dodge = 2), y = "none") +
+    theme(plot.title = element_text(hjust = 0.5))
+subunit_plot <- compare_tib %>%
+    filter(epitope == "Subunit interface") %>%
+    ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
+               y = AUC, ymin = cil, ymax = ciu, shape = method,
+               group = paste0(epitope, "_", method))) +
+    geom_point(position = position_dodge(width = 0.75, preserve = "total"),
+               size = point_size) +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    ylim(c(0.3, 1)) +
+    labs(y = NULL) +
+    ggtitle("Subunit interface") +
+    xlab("") +
+    guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
+    theme(plot.title = element_text(hjust = 0.5))
+
 v3_plot <- compare_tib %>%
     filter(epitope == "V3") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -209,6 +210,9 @@ compare_plot <- plot_grid(
 
 
 ggsave(filename = here("fig", "auc_fig.tiff"),
+       plot = compare_plot,
+       width = 45, height = 20, units = "cm")
+ggsave(filename = here("fig", "auc_fig.png"),
        plot = compare_plot,
        width = 45, height = 20, units = "cm")
 
