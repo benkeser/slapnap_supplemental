@@ -1,571 +1,0 @@
---- Checking options --- 
---- Building analytic data set from CATNAP database --- 
---- Fitting learners --- 
-Loading required package: nnls
-Super Learner
-Version: 2.0-26
-Package created on 2019-10-27
-
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-[1] "Fitting IC-50"
-Loading required package: quadprog
-Loading required namespace: ranger
-Loading required namespace: glmnet
-Loading required namespace: xgboost
-[1] "Fitting Estimated sensitivity"
-Loading required package: nloptr
-[1] "Fitting Multiple sensitivity"
-There were 15 warnings (use warnings() to see them)
---- Compiling results using R Markdown --- 
-
-
-processing file: 05_report.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.                                                                     |   1%
-   inline R code fragments
-
-  |                                                                              |.                                                                     |   2%
-label: source_preamble (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..                                                                    |   3%
-   inline R code fragments
-
-
-label: sllibtab
-  |                                                                              |...                                                                   |   4%
-   inline R code fragments
-
-  |                                                                              |....                                                                  |   5%
-label: getcvfits
-Loading required namespace: cvAUC
-  |                                                                              |....                                                                  |   6%
-   inline R code fragments
-
-  |                                                                              |.....                                                                 |   7%
-label: rsquaredtable (with options) 
-List of 1
- $ eval: language any_cont & opts$cvperf
-
-  |                                                                              |.....                                                                 |   8%
-  ordinary text without R code
-
-  |                                                                              |......                                                                |   9%
-label: auctable (with options) 
-List of 1
- $ eval: language any_dich & opts$cvperf
-
-  |                                                                              |.......                                                               |  10%
-   inline R code fragments
-
-
-label: vimpgrpmarg (with options) 
-List of 1
- $ eval: language "marg" %in% opts$importance_grp
-
-  |                                                                              |........                                                              |  11%
-   inline R code fragments
-
-  |                                                                              |.........                                                             |  12%
-label: vimpgrpcond (with options) 
-List of 1
- $ eval: language "cond" %in% opts$importance_grp
-
-  |                                                                              |.........                                                             |  13%
-   inline R code fragments
-
-  |                                                                              |..........                                                            |  14%
-label: histic50 (with options) 
-List of 3
- $ eval      : language ("ic50" %in% opts$outcomes) & !one_nab
- $ fig.cap   : language paste0("Distribution of IC$_{50}$ values (n = ", ifelse(opts$same_subset,      ncomplete_ic5080, ncomplete_ic50),| __truncated__
- $ fig.height: num 5
-
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-  |                                                                              |..........                                                            |  15%
-  ordinary text without R code
-
-  |                                                                              |...........                                                           |  16%
-label: tableic50 (with options) 
-List of 1
- $ eval: language ("ic50" %in% opts$outcomes) & !one_nab
-
-  |                                                                              |............                                                          |  17%
-   inline R code fragments
-
-
-label: makecapic50 (with options) 
-List of 1
- $ eval: language "ic50" %in% opts$outcomes
-
-  |                                                                              |.............                                                         |  18%
-  ordinary text without R code
-
-  |                                                                              |.............                                                         |  19%
-label: histcombnic50 (with options) 
-List of 2
- $ eval   : language "ic50" %in% opts$outcomes
- $ fig.cap: symbol ic50_figcap
-
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...............                                                       |  21%
-label: ic50superlearnerweighttable (with options) 
-List of 1
- $ eval: language ("ic50" %in% opts$outcomes) & (length(opts$learners) > 1)
-
-  |                                                                              |...............                                                       |  22%
-   inline R code fragments
-
-  |                                                                              |................                                                      |  23%
-label: plotic50 (with options) 
-List of 2
- $ eval   : language ("ic50" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated $R^2$ for ", ifelse(length(opts$nab) == 1, "",      "estimated"), " IC$_{50}$ (n = ", ife| __truncated__ ...
-
-
-   inline R code fragments
-
-  |                                                                              |.................                                                     |  24%
-label: plotic50predversusoutcomes (with options) 
-List of 2
- $ eval   : language ("ic50" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated super learner predicted ", ifelse(length(opts$nab) ==      1, "", "estimated"), " log$_{1| __truncated__ ...
-
-  |                                                                              |..................                                                    |  25%
-   inline R code fragments
-
-  |                                                                              |..................                                                    |  26%
-label: ic50groupvimp (with options) 
-List of 3
- $ eval      : language ("ic50" %in% opts$outcomes) & (("marg" %in% opts$importance_grp) | ("cond" %in%      opts$importance_grp))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic50, num_obs_fulls, num_obs_reds,      outcome = "ic50", grp = TR| __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |...................                                                   |  27%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  28%
-label: ic50indivimp (with options) 
-List of 3
- $ eval      : language ("ic50" %in% opts$outcomes) & (("marg" %in% opts$importance_ind) | ("cond" %in%      opts$importance_ind))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic50, num_obs_fulls, num_obs_reds,      "ic50", grp = FALSE, marg | __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |....................                                                  |  29%
-   inline R code fragments
-
-  |                                                                              |.....................                                                 |  30%
-label: get-pred-imp-ic50 (with options) 
-List of 1
- $ eval: language ("ic50" %in% opts$outcomes) & ("pred" %in% opts$importance_ind)
-
-
-   inline R code fragments
-
-  |                                                                              |......................                                                |  31%
-label: ic50-imp-table (with options) 
-List of 1
- $ eval: language "ic50" %in% opts$outcomes & ("pred" %in% opts$importance_ind)
-
-  |                                                                              |.......................                                               |  32%
-   inline R code fragments
-
-  |                                                                              |.......................                                               |  33%
-label: histic80 (with options) 
-List of 3
- $ eval      : language ("ic80" %in% opts$outcomes) & (!one_nab)
- $ fig.cap   : language paste0("Distribution of IC$_{80}$ values (n = ", ifelse(opts$same_subset,      ncomplete_ic5080, ncomplete_ic80),| __truncated__
- $ fig.height: num 5
-
-  |                                                                              |........................                                              |  34%
-  ordinary text without R code
-
-  |                                                                              |........................                                              |  35%
-label: tableic80 (with options) 
-List of 1
- $ eval: language ("ic80" %in% opts$outcomes) & (!one_nab)
-
-  |                                                                              |.........................                                             |  36%
-   inline R code fragments
-
-  |                                                                              |..........................                                            |  37%
-label: makecapic80 (with options) 
-List of 1
- $ eval: language "ic80" %in% opts$outcomes
-
-
-  ordinary text without R code
-
-  |                                                                              |...........................                                           |  38%
-label: histcombnic80 (with options) 
-List of 2
- $ eval   : language "ic80" %in% opts$outcomes
- $ fig.cap: symbol ic80_figcap
-
-  |                                                                              |...........................                                           |  39%
-   inline R code fragments
-
-  |                                                                              |............................                                          |  40%
-label: ic80superlearnerweighttable (with options) 
-List of 1
- $ eval: language ("ic80" %in% opts$outcomes) & (length(opts$learners) > 1)
-
-  |                                                                              |.............................                                         |  41%
-   inline R code fragments
-
-  |                                                                              |.............................                                         |  42%
-label: plotic80 (with options) 
-List of 2
- $ eval   : language ("ic80" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated $R^2$ for ", ifelse(length(opts$nab) == 1, "",      "estimated "), "IC$_{80}$ (n = ", ife| __truncated__ ...
-
-  |                                                                              |..............................                                        |  43%
-   inline R code fragments
-
-
-label: plotic80predversusoutcomes (with options) 
-List of 2
- $ eval   : language ("ic80" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated super learner predicted ", ifelse(length(opts$nab) ==      1, "", "estimated"), " log$_{1| __truncated__ ...
-
-  |                                                                              |...............................                                       |  44%
-   inline R code fragments
-
-  |                                                                              |................................                                      |  45%
-label: ic80groupvimp (with options) 
-List of 3
- $ eval      : language ("ic80" %in% opts$outcomes) & (("marg" %in% opts$importance_grp) | ("cond" %in%      opts$importance_grp))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic80, num_obs_fulls, num_obs_reds,      "ic80", grp = TRUE, marg =| __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |................................                                      |  46%
-   inline R code fragments
-
-  |                                                                              |.................................                                     |  47%
-label: ic80indivimp (with options) 
-List of 3
- $ eval      : language ("ic80" %in% opts$outcomes) & (("marg" %in% opts$importance_ind) | ("cond" %in%      opts$importance_ind))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic80, num_obs_fulls, num_obs_reds,      "ic80", grp = FALSE, marg | __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |.................................                                     |  48%
-   inline R code fragments
-
-  |                                                                              |..................................                                    |  49%
-label: get-pred-imp-ic80 (with options) 
-List of 1
- $ eval: language "ic80" %in% opts$outcomes & ("pred" %in% opts$importance_ind)
-
-  |                                                                              |...................................                                   |  50%
-   inline R code fragments
-
-
-label: ic80-imp-table (with options) 
-List of 1
- $ eval: language "ic80" %in% opts$outcomes & ("pred" %in% opts$importance_ind)
-
-  |                                                                              |....................................                                  |  51%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  52%
-label: makecapiip (with options) 
-List of 1
- $ eval: language "iip" %in% opts$outcomes
-
-  |                                                                              |.....................................                                 |  53%
-  ordinary text without R code
-
-  |                                                                              |......................................                                |  54%
-label: histcombniip (with options) 
-List of 2
- $ eval   : language "iip" %in% opts$outcomes
- $ fig.cap: symbol iip_figcap
-
-  |                                                                              |......................................                                |  55%
-   inline R code fragments
-
-  |                                                                              |.......................................                               |  56%
-label: iipsuperlearnerweighttable (with options) 
-List of 1
- $ eval: language ("iip" %in% opts$outcomes) & (length(opts$learners) > 1)
-
-  |                                                                              |........................................                              |  57%
-   inline R code fragments
-
-
-label: plotiip (with options) 
-List of 2
- $ eval   : language ("iip" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated $R^2$ for ", ifelse(length(opts$nab) == 1, "",      "estimated "), "IIP (", ncomplete_ic5| __truncated__
-
-  |                                                                              |.........................................                             |  58%
-  ordinary text without R code
-
-  |                                                                              |.........................................                             |  59%
-label: plotiippredversusoutcomes (with options) 
-List of 2
- $ eval   : language ("iip" %in% opts$outcomes) & (opts$cvperf)
- $ fig.cap: language paste0("Cross-validated super learner predicted IIP plotted against observed value (",      ncomplete_ic5080, " o| __truncated__
-
-  |                                                                              |..........................................                            |  60%
-   inline R code fragments
-
-  |                                                                              |...........................................                           |  61%
-label: iipgroupvimp (with options) 
-List of 3
- $ eval      : language ("iip" %in% opts$outcomes) & (("marg" %in% opts$importance_grp) | ("cond" %in%      opts$importance_grp))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic5080, num_obs_fulls, num_obs_reds,      "iip", grp = TRUE, marg | __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |...........................................                           |  62%
-   inline R code fragments
-
-  |                                                                              |............................................                          |  63%
-label: iipindivimp (with options) 
-List of 3
- $ eval      : language ("iip" %in% opts$outcomes) & (("marg" %in% opts$importance_ind) | ("cond" %in%      opts$importance_ind))
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_ic5080, num_obs_fulls, num_obs_reds,      "iip", grp = FALSE, marg| __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-
-   inline R code fragments
-
-  |                                                                              |.............................................                         |  64%
-label: get-pred-imp-iip (with options) 
-List of 1
- $ eval: language "iip" %in% opts$outcomes & ("pred" %in% opts$importance_ind)
-
-  |                                                                              |..............................................                        |  65%
-   inline R code fragments
-
-  |                                                                              |..............................................                        |  66%
-label: iip-imp-table (with options) 
-List of 1
- $ eval: language "iip" %in% opts$outcomes & ("pred" %in% opts$importance_ind)
-
-  |                                                                              |...............................................                       |  67%
-   inline R code fragments
-
-  |                                                                              |...............................................                       |  68%
-label: sens1superlearnerweighttable (with options) 
-List of 1
- $ eval: language ("sens1" %in% opts$outcomes) & (length(opts$learners) > 1) & ran_sl_dichot1
-
-  |                                                                              |................................................                      |  69%
-   inline R code fragments
-
-  |                                                                              |.................................................                     |  70%
-label: plotdichot1 (with options) 
-List of 2
- $ eval   : language ("sens1" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot1
- $ fig.cap: language paste0("Cross-validated AUC for predicting ", est_fillin, "sensitivity (n = ",      ncomplete_sens, " observations).")
-
-
-   inline R code fragments
-
-  |                                                                              |..................................................                    |  71%
-label: roccap1 (with options) 
-List of 1
- $ eval: language ("sens1" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot1
-
-  |                                                                              |...................................................                   |  72%
-  ordinary text without R code
-
-  |                                                                              |...................................................                   |  73%
-label: rocdichot1 (with options) 
-List of 2
- $ fig.cap: symbol roc_cap
- $ eval   : language ("sens1" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot1
-
-  |                                                                              |....................................................                  |  74%
-  ordinary text without R code
-
-  |                                                                              |....................................................                  |  75%
-label: predprob1 (with options) 
-List of 2
- $ fig.cap: symbol predprob_cap
- $ eval   : language ("sens1" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot1
-
-  |                                                                              |.....................................................                 |  76%
-   inline R code fragments
-
-  |                                                                              |......................................................                |  77%
-label: sens1groupvimp (with options) 
-List of 3
- $ eval      : language ("sens1" %in% opts$outcomes) & (("marg" %in% opts$importance_grp) | ("cond" %in%      opts$importance_grp)) & ran_vimp_dichot1
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_sens, num_obs_fulls, num_obs_reds,      "sens1", grp = TRUE, marg | __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-
-   inline R code fragments
-
-  |                                                                              |.......................................................               |  78%
-label: sens1indivimp (with options) 
-List of 3
- $ eval      : language ("sens1" %in% opts$outcomes) & (("marg" %in% opts$importance_ind) | ("cond" %in%      opts$importance_ind)) & ran_vimp_dichot1
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_sens, num_obs_fulls, num_obs_reds,      "sens1", grp = FALSE, marg| __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |.......................................................               |  79%
-   inline R code fragments
-
-  |                                                                              |........................................................              |  80%
-label: get-pred-imp-sens1 (with options) 
-List of 1
- $ eval: language "sens1" %in% opts$outcomes & ("pred" %in% opts$importance_ind) & ran_sl_dichot1
-
-  |                                                                              |.........................................................             |  81%
-   inline R code fragments
-
-  |                                                                              |.........................................................             |  82%
-label: sens1-imp-table (with options) 
-List of 1
- $ eval: language "sens1" %in% opts$outcomes & ("pred" %in% opts$importance_ind) & ran_sl_dichot1
-
-  |                                                                              |..........................................................            |  83%
-   inline R code fragments
-
-
-label: sens2superlearnerweighttable (with options) 
-List of 1
- $ eval: language ("sens2" %in% opts$outcomes) & (length(opts$learners) > 1) & ran_sl_dichot2
-
-  |                                                                              |...........................................................           |  84%
-   inline R code fragments
-
-  |                                                                              |............................................................          |  85%
-label: plotdichot2 (with options) 
-List of 2
- $ eval   : language ("sens2" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot2
- $ fig.cap: language paste0("Cross-validated AUC for multiple sensitivity (n = ", ncomplete_sens,      " observations).")
-
-  |                                                                              |............................................................          |  86%
-   inline R code fragments
-
-  |                                                                              |.............................................................         |  87%
-label: roccap2 (with options) 
-List of 1
- $ eval: language ("sens2" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot2
-
-  |                                                                              |.............................................................         |  88%
-  ordinary text without R code
-
-  |                                                                              |..............................................................        |  89%
-label: rocdichot2 (with options) 
-List of 2
- $ fig.cap: symbol roc_cap
- $ eval   : language ("sens2" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot2
-
-  |                                                                              |...............................................................       |  90%
-  ordinary text without R code
-
-
-label: predprob2 (with options) 
-List of 2
- $ fig.cap: symbol predprob_cap
- $ eval   : language ("sens2" %in% opts$outcomes) & (opts$cvperf) & ran_sl_dichot2
-
-  |                                                                              |................................................................      |  91%
-   inline R code fragments
-
-  |                                                                              |.................................................................     |  92%
-label: sens2groupvimp (with options) 
-List of 3
- $ eval      : language ("sens2" %in% opts$outcomes) & (("marg" %in% opts$importance_grp) | ("cond" %in%      opts$importance_grp)) & ran_vimp_dichot2
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_sens, num_obs_fulls, num_obs_reds,      "sens2", grp = TRUE, marg | __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |.................................................................     |  93%
-   inline R code fragments
-
-  |                                                                              |..................................................................    |  94%
-label: sens2indivimp (with options) 
-List of 3
- $ eval      : language ("sens2" %in% opts$outcomes) & (("marg" %in% opts$importance_ind) | ("cond" %in%      opts$importance_ind)) & ran_vimp_dichot2
- $ fig.cap   : language biological_importance_figure_caption(ncomplete_sens, num_obs_fulls, num_obs_reds,      "sens2", grp = FALSE, marg| __truncated__ ...
- $ fig.subcap: language c("Marginal importance", "Conditional importance")
-
-  |                                                                              |..................................................................    |  95%
-   inline R code fragments
-
-  |                                                                              |...................................................................   |  96%
-label: get-pred-imp-sens2 (with options) 
-List of 1
- $ eval: language "sens2" %in% opts$outcomes & ("pred" %in% opts$importance_ind) & ran_sl_dichot2
-
-  |                                                                              |....................................................................  |  97%
-   inline R code fragments
-
-
-label: sens2-imp-table (with options) 
-List of 1
- $ eval: language "sens2" %in% opts$outcomes & ("pred" %in% opts$importance_ind) & ran_sl_dichot2
-
-  |                                                                              |..................................................................... |  98%
-   inline R code fragments
-
-  |                                                                              |..................................................................... |  99%
-label: vimpGroupTab (with options) 
-List of 1
- $ eval: language !(opts$importance_grp == "")
-
-  |                                                                              |......................................................................| 100%
-   inline R code fragments
-
-
-output file: 05_report.knit.md
-
-/usr/bin/pandoc +RTS -K512m -RTS 05_report.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /home/output/report_10-1074_3BNC117_22Jan2021.html --lua-filter /usr/local/lib/R/site-library/bookdown/rmarkdown/lua/custom-environment.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --email-obfuscation none --self-contained --wrap preserve --standalone --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable 'theme:bootstrap' --include-in-header /tmp/RtmpkVcbUt/rmarkdown-str19893131baed.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --filter /usr/bin/pandoc-citeproc 
-
-Output created: home/output/report_10-1074_3BNC117_22Jan2021.html
---- Returning requested objects --- 
-[1] TRUE TRUE TRUE TRUE TRUE TRUE
---- Generating metadata using R Markdown --- 
-
-
-processing file: 07_metadata.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |..........                                                            |  14%
-   inline R code fragments
-
-  |                                                                              |....................                                                  |  29%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............................                                        |  43%
-  ordinary text without R code
-
-  |                                                                              |........................................                              |  57%
-label: get-options-and-dataset
-  |                                                                              |..................................................                    |  71%
-   inline R code fragments
-
-  |                                                                              |............................................................          |  86%
-label: variables
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: 07_metadata.knit.md
-
-/usr/bin/pandoc +RTS -K512m -RTS 07_metadata.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /home/output/metadata_10-1074_3BNC117_22Jan2021.html --lua-filter /usr/local/lib/R/site-library/bookdown/rmarkdown/lua/custom-environment.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /usr/local/lib/R/site-library/rmarkdown/rmarkdown/lua/latex-div.lua --email-obfuscation none --self-contained --wrap preserve --standalone --section-divs --template /usr/local/lib/R/site-library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --number-sections --variable 'theme:bootstrap' --include-in-header /tmp/Rtmpj25rtw/rmarkdown-str19be7efad31f.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --filter /usr/bin/pandoc-citeproc 
-
-Output created: home/output/metadata_10-1074_3BNC117_22Jan2021.html
---- END --- 

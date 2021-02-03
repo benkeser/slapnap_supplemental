@@ -52,7 +52,6 @@ wide_outcomes <- all_outcomes %>%
            `nab_10-1074.ic80.imputed` = `ic80.imputed_10-1074`) %>% 
     select(-ends_with("NA"))
 # create the final outcomes
-sens_thresh <- 2
 multsens_nab <- 1
 wagh.additive.method <- function(x) 1 / sum(1 / x)
 indiv_sens <- function(x, sens_thresh) sum(as.numeric(x < sens_thresh))
@@ -74,13 +73,17 @@ iip.m <- log10(4) /(log10.pc.ic80 - log10.pc.ic50)
 iip.f.c <-(iip.c ^ iip.m) /((pc.ic50 ^ iip.m) + (iip.c ^ iip.m))
 iip.f.c[iip.f.c >= 1] <- 1 - .Machine$double.neg.eps
 iip <- (-1) * log10(1 - iip.f.c)
-estsens <- as.numeric(pc.ic50 < sens_thresh)
-multsens <- as.numeric(apply(wide_outcomes[, grepl("ic50", names(wide_outcomes))], 
-                  1, indiv_sens, sens_thresh = sens_thresh) > multsens_nab)
+estsens_1 <- as.numeric(pc.ic50 < 1)
+estsens_2 <- as.numeric(pc.ic50 < 2)
+multsens_2 <- as.numeric(apply(wide_outcomes[, grepl("ic50", names(wide_outcomes))], 
+                  1, indiv_sens, sens_thresh = 2) > multsens_nab)
+multsens_1 <- as.numeric(apply(wide_outcomes[, grepl("ic50", names(wide_outcomes))], 
+                               1, indiv_sens, sens_thresh = 1) > multsens_nab)
 final_outcomes <- wide_outcomes %>% 
     mutate(pc.ic50 = pc.ic50, pc.ic80 = pc.ic80,
            log10.pc.ic50 = log10.pc.ic50, log10.pc.ic80 = log10.pc.ic80,
-           iip = iip, estsens = estsens, multsens = multsens)
+           iip = iip, estsens_2 = estsens_2, multsens_2 = multsens_2,
+           estsens_1 = estsens_1, multsens_1 = multsens_1)
 
 # ------------------------------------------------------------------------------
 # Merge final outcome data with viral sequence data, using hash table
@@ -100,7 +103,8 @@ final_outcomes$virus_id <- apply(final_outcomes[, c("id", "time_point", "seq_id"
       })
 gsub("W0", "D0", final_outcomes$virus_id)
 outcomes_for_slapnap <- final_outcomes %>% 
-    select(virus_id, log10.pc.ic50, log10.pc.ic80, estsens, multsens) %>% 
+    select(virus_id, log10.pc.ic50, log10.pc.ic80, starts_with("estsens"), 
+           starts_with("multsens")) %>% 
     rename(ic50 = log10.pc.ic50, ic80 = log10.pc.ic80)
 
 
@@ -128,5 +132,6 @@ analysis_dataset <- dplyr::left_join(
     outcome_tib,
     by = "seq.id.lanl"
 ) %>% 
-    select(seq.id.lanl, seq.id.catnap, ic50, ic80, estsens, multsens, everything())
+    select(seq.id.lanl, seq.id.catnap, ic50, ic80, 
+           starts_with("estsens"), starts_with("multsens"), everything())
 saveRDS(analysis_dataset, here("test_set/data", "analysis_dataset.rds"))
