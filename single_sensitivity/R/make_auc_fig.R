@@ -43,7 +43,7 @@ rawi_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.85, cil
                            tibble(epitope = "Fusion peptide", bnab = "PGT151", AUC = 0.78, cil = NA, ciu = NA),
                            tibble(epitope = "Fusion peptide", bnab = "VRC34.01", AUC = 0.78, cil = NA, ciu = NA),
                            tibble(epitope = "Subunit interface", bnab = "8ANC195", AUC = 0.90, cil = NA, ciu = NA),
-                           tibble(epitope = "Subunit interface", bnab = "35022", AUC = 0.63, cil = NA, ciu = NA),
+                           tibble(epitope = "Subunit interface", bnab = "35O22", AUC = 0.63, cil = NA, ciu = NA),
                            tibble(epitope = "MPER", bnab = "4E10", AUC = 0.82, cil = NA, ciu = NA),
                            tibble(epitope = "MPER", bnab = "2F5", AUC = 0.97, cil = NA, ciu = NA)) %>%
     mutate(method = "Rawi et al. (2019)")
@@ -77,7 +77,7 @@ hake_results <- bind_rows(tibble(epitope = "V1V2", bnab = "PG9", AUC = 0.67, cil
                            tibble(epitope = "Fusion peptide", bnab = "PGT151", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "Fusion peptide", bnab = "VRC34.01", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "Subunit interface", bnab = "8ANC195", AUC = NA, cil = NA, ciu = NA),
-                           tibble(epitope = "Subunit interface", bnab = "35022", AUC = 0.65, cil = NA, ciu = NA),
+                           tibble(epitope = "Subunit interface", bnab = "35O22", AUC = 0.65, cil = NA, ciu = NA),
                            tibble(epitope = "MPER", bnab = "4E10", AUC = NA, cil = NA, ciu = NA),
                            tibble(epitope = "MPER", bnab = "2F5", AUC = NA, cil = NA, ciu = NA)) %>%
     mutate(method = "Hake and Pfeifer (2017)")
@@ -122,7 +122,8 @@ cd4bs_plot <- compare_tib %>%
     ggtitle("CD4bs") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 v1v2_plot <- compare_tib %>%
     filter(epitope == "V1V2") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -136,7 +137,8 @@ v1v2_plot <- compare_tib %>%
     ggtitle("V1V2") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 fusion_plot <- compare_tib %>%
     filter(epitope == "Fusion peptide") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -150,7 +152,8 @@ fusion_plot <- compare_tib %>%
     ggtitle("Fusion peptide") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 mper_plot <- compare_tib %>%
     filter(epitope == "MPER") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -164,7 +167,8 @@ mper_plot <- compare_tib %>%
     ggtitle("MPER") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 subunit_plot <- compare_tib %>%
     filter(epitope == "Subunit interface") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -178,7 +182,8 @@ subunit_plot <- compare_tib %>%
     ggtitle("Subunit interface") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 
 v3_plot <- compare_tib %>%
     filter(epitope == "V3") %>%
@@ -193,7 +198,8 @@ v3_plot <- compare_tib %>%
     ggtitle("V3") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), y = "none", shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5),
+          axis.title.x = element_blank())
 
 
 compare_plot <- plot_grid(
@@ -204,8 +210,8 @@ compare_plot <- plot_grid(
         nrow = 2
     ),
     ggplot() + ggtitle("bnAb") + guides(x = "none", y = "none") +
-    theme(plot.title = element_text(hjust = 0.5, face = "plain")),
-    nrow = 2, rel_heights = c(1, 0.1)
+    theme(plot.title = element_text(hjust = 0.5, face = "plain", size = 18)),
+    nrow = 2, rel_heights = c(1, 0.02)
 )
 
 
