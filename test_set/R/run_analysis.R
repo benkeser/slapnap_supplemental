@@ -30,6 +30,9 @@ cc_covars <- cc_data %>%
     select(-seq.id.lanl, -seq.id.catnap, -ic50, -ic80, 
            -starts_with("estsens"), -starts_with("multsens"))
 
+table(cc_data$estsens_2)
+table(cc_data$multsens_2)
+
 # get the correct names for the cv learners (based on date that you ran SLAPNAP)
 # note that the final piece determines the analysis threshold for binary variables
 # (2 matches the Mendoza et al. and Bar-On et al. papers; 1 matches other SLAPNAP analyses)
