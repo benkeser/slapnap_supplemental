@@ -28,13 +28,13 @@ do
   docker run \
     -d \
     -v "$(pwd)"/docker_output/$DIR_NAB/:/home/output/ \
-    -e learners="rf;lasso;xgboost" \
+    -e learners="rf;lasso;h2oboost" \
     -e cvperf="TRUE" \
     -e cvtune="TRUE" \
     -e nab=$SLAPNAP_NAB \
     -e outcomes="sens" \
     -e sens_thresh="50" \
-    -e return="report;data;learner" \
+    -e return="data;learner" \
     -e nfolds="5" \
     slapnap
 done
