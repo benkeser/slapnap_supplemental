@@ -17,12 +17,12 @@ do
         -e nab=$SLAPNAP_NAB \
         -e outcomes=$outcomes \
         -e binary_outcomes="ic50" \
-        -e learners="rf;lasso;xgboost" \
+        -e learners="rf;lasso;h2oboost" \
         -e sens_thresh=$THRESH \
         -e var_thresh="0;4" \
         -e nfolds="5" \
         -e cvtune="TRUE" \
         -e cvperf="TRUE" \
-        -e return="report;data;learner" \
+        -e return="data;learner" \
         slapnap/slapnap
 done
