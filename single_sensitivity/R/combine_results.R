@@ -5,7 +5,10 @@ library(SuperLearner)
 library(cvAUC)
 
 # in docker container
-setwd("/home/output")
+docker <- FALSE
+if (docker) {
+    setwd("/home/output")    
+} 
 
 library(here)
 
@@ -34,17 +37,10 @@ for(folder_root in folder_roots){
 	sens_sl_pred <- as.numeric(sens_fit$SL.predict)
 
 	# auc + ci
-    ests <- vector("list", length = sens_fit$V)
-    ses <- vector("list", length = sens_fit$V)
-    for (v in 1:sens_fit$V) {
-        est_sens_auc <- ci.cvAUC(predictions = sens_sl_pred[sens_fit$folds[[v]]], labels = sens_fit$Y[sens_fit$folds[[v]]])
-        ests[[v]] <- est_sens_auc$cvAUC
-        ses[[v]] <- est_sens_auc$se
-    }
-    est_vec <- unlist(ests)
-    se_vec <- unlist(ses)
-    mn_est <- mean(est_vec)
-    mn_se <- mean(se_vec)
+    est_sens_auc <- ci.cvAUC(predictions = sens_sl_pred, labels = sens_fit$Y, 
+                             folds = sens_fit$folds)
+    mn_est <- est_sens_auc$cvAUC
+    mn_se <- est_sens_auc$se
     grad <- 1 / (mn_est - mn_est ^ 2)
     logit_se <- sqrt(mn_se ^ 2 * grad ^ 2)
     cil <- plogis(qlogis(mn_est) - qnorm(0.975) * logit_se)
