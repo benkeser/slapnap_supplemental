@@ -17,7 +17,7 @@ do
         -e nab=$SLAPNAP_NAB \
         -e outcomes=$outcomes \
         -e binary_outcomes="ic50" \
-        -e learners="rf;lasso;h2oboost" \
+        -e learners="rf;lasso;xgboost" \
         -e sens_thresh=$THRESH \
         -e var_thresh="0;4" \
         -e nfolds="5" \
