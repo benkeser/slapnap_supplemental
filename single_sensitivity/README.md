@@ -4,13 +4,13 @@
 > Validation of slapnap for use with single antibodies
 
 **Authors:** [David Benkeser](https://www.github.com/benkeser/), [Brian
-D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Sohail Nizam, Peter B. Gilbert
+D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Courtney Simmons, Sohail Nizam, Peter B. Gilbert
 
 -----
 
 ## Description
 
-This directory contains all code needed to reproduce the `slapnap` analysis of single antibody regimens. The dependency structure of the code can be examined by studying the `Makefile`. See `make help` for more details on the components of the analysis.
+This directory contains all code needed to reproduce the `slapnap` analysis of single antibody regimens using binary outcomes. For the analysis using continuous outcomes, please see [this repository](https://github.com/SohailNizam/ic50ic80), which uses a similar structure to the current analysis. The dependency structure of the code can be examined by studying the `Makefile`. See `make help` for more details on the components of the analysis.
 
 The code requires the following installed software:
 * `make`

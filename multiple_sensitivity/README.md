@@ -4,7 +4,7 @@
 > Validation of slapnap for use with multiple antibodies
 
 **Authors:** [David Benkeser](https://www.github.com/benkeser/), [Brian
-D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Sohail Nizam, Peter B. Gilbert
+D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Courtney Simmons, Sohail Nizam, Peter B. Gilbert
 
 -----
 
