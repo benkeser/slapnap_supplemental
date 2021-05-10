@@ -108,7 +108,9 @@ compare_tib <- bind_rows(rawi_results, hake_results, slapnap_results)
 # Create the plot
 # --------------------------------------------------------------------------
 epitope_labs <- unique(compare_tib$epitope)[order(unique(compare_tib$epitope), decreasing = TRUE)]
-point_size <- 2
+point_size <- 0.5
+font_size <- 5.5
+line_size <- 0.25
 cd4bs_plot <- compare_tib %>%
     filter(epitope == "CD4bs") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -116,14 +118,21 @@ cd4bs_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                     size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
     ylab("CV-AUC") +
     ggtitle("CD4bs") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0.1, 0.2, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 v1v2_plot <- compare_tib %>%
     filter(epitope == "V1V2") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -131,14 +140,21 @@ v1v2_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                     size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
     ylab("CV-AUC") +
     ggtitle("V1V2") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0.1, 0.1, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 fusion_plot <- compare_tib %>%
     filter(epitope == "Fusion peptide") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -146,14 +162,21 @@ fusion_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
     ggtitle("Fusion peptide") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0.1, 0.2, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 mper_plot <- compare_tib %>%
     filter(epitope == "MPER") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -161,14 +184,25 @@ mper_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
-    labs(y = NULL) +
+    labs(y = NULL, shape = "Method") +
     ggtitle("MPER") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), y = "none") +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          legend.title = element_text(size = font_size),
+          legend.text = element_text(size = font_size * .75),
+          legend.margin = margin(0, 0, 0, -0.15, "cm"),
+          legend.box.margin = margin(0, 0, 0, -0.15, "cm"),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0.15, 0.2, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 subunit_plot <- compare_tib %>%
     filter(epitope == "Subunit interface") %>%
     ggplot(aes(x = forcats::fct_reorder(as.factor(bnab), desc(epitope)),
@@ -176,14 +210,21 @@ subunit_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
     ggtitle("Subunit interface") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), shape = FALSE, y = "none") +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0.1, 0.2, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 
 v3_plot <- compare_tib %>%
     filter(epitope == "V3") %>%
@@ -192,15 +233,21 @@ v3_plot <- compare_tib %>%
                group = paste0(epitope, "_", method))) +
     geom_point(position = position_dodge(width = 0.75, preserve = "total"),
                     size = point_size) +
-    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") +
+    geom_hline(yintercept = 0.5, linetype = "dashed", color = "red", 
+               size = line_size) +
     ylim(c(0.3, 1)) +
     labs(y = NULL) +
     ggtitle("V3") +
     xlab("") +
     guides(x = guide_axis(n.dodge = 2), y = "none", shape = FALSE) +
-    theme(plot.title = element_text(hjust = 0.5),
-          axis.title.x = element_blank())
-
+    theme(plot.title = element_text(hjust = 0.5, size = font_size),
+          axis.title.x = element_blank(),
+          text = element_text(size = font_size),
+          axis.text = element_text(size = font_size * .75),
+          axis.line = element_line(size = line_size),
+          axis.ticks = element_line(size = line_size),
+          plot.margin = margin(0, 0, 0.1, 0, "cm")) +
+    background_grid(size.major = line_size, size.minor = line_size)
 
 compare_plot <- plot_grid(
     plot_grid(
@@ -210,17 +257,18 @@ compare_plot <- plot_grid(
         nrow = 2
     ),
     ggplot() + ggtitle("bnAb") + guides(x = "none", y = "none") +
-    theme(plot.title = element_text(hjust = 0.5, face = "plain", size = 18)),
+    theme(plot.title = element_text(hjust = 0.5, face = "plain", size = font_size)),
     nrow = 2, rel_heights = c(1, 0.02)
 )
 
-
+fig_width <- 5
+fig_height <- 2.25
 ggsave(filename = here("fig", "auc_fig.tiff"),
-       plot = compare_plot,
-       width = 45, height = 20, units = "cm")
+       plot = compare_plot, 
+       width = fig_width, height = fig_height, units = "in", dpi = 300)
 ggsave(filename = here("fig", "auc_fig.png"),
-       plot = compare_plot,
-       width = 45, height = 20, units = "cm")
+       plot = compare_plot, 
+       width = fig_width, height = fig_height, units = "in", dpi = 300)
 
 # median across all epitopes and within epitope for each estimator
 compare_tib %>% 

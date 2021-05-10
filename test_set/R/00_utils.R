@@ -1382,7 +1382,8 @@ SL.h2oboost <- function(Y, X, newX, family, obsWeights = rep(1, length(Y)), ...)
   
   # Bind vector of outcome and covariate matrix together; 
   # if Y is binary, make it a factor first
-  dat <- cbind(switch((family$family == "binomial") + 1, Y, as.factor(Y)), X)
+  Y <- switch((family$family == "binomial") + 1, Y, as.factor(Y))
+  dat <- cbind(Y, X)
   
   # Convert dat to an h2o object
   dat.hex <- as.h2o(dat)
