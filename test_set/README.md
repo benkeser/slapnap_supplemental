@@ -4,7 +4,7 @@
 > Validation of slapnap on test data external to CATNAP
 
 **Authors:** [David Benkeser](https://www.github.com/benkeser/), [Brian
-D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Sohail Nizam, Peter B. Gilbert
+D. Williamson](https://www.github.com/bdwilliamson), Craig A. Magaret, Courtney Simmons, Sohail Nizam, Peter B. Gilbert
 
 -----
 
